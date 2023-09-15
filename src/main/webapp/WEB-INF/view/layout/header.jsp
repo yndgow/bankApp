@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
@@ -29,10 +29,10 @@
         <a class="nav-link" href="#">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">SignIn</a>
+        <a class="nav-link" href="/user/sign-in">SignIn</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">SingUp</a>
+        <a class="nav-link" href="/user/sign-up">SingUp</a>
       </li>    
     </ul>
   </div>  
@@ -49,19 +49,19 @@
       <p>Lorem ipsum dolor sit ame.</p>
       <ul class="nav nav-pills flex-column">
       	<li class="nav-item">
-          <a class="nav-link" href="#">계좌생성</a>
+          <a class="nav-link" href="/account/save">계좌생성</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">계좌목록</a>
+          <a class="nav-link" href="/account/list">계좌목록</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">출금</a>
+          <a class="nav-link" href="/account/withdraw">출금</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">입금</a>
+          <a class="nav-link" href="/account/deposit">입금</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">이체</a>
+          <a class="nav-link" href="/account/transfer">이체</a>
         </li>
       </ul>
       <hr class="d-sm-none">
