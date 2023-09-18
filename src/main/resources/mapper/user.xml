@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper	namespace="com.tencoding.bank.repository.interfaces.UserRepository">
+	
+	<select id="findByusernameAndPassword" resultType="com.tencoding.bank.repository.model.User">
+	SELECT * FROM user_tb 
+	WHERE username = #{username} AND password = #{password};
+	</select>
+
 
 	<insert id="insert">
 		INSERT INTO user_tb(username, password, fullname)
