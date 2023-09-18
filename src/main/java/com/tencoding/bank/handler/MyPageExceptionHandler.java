@@ -1,5 +1,6 @@
 package com.tencoding.bank.handler;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,11 +15,12 @@ import com.tencoding.bank.handler.exception.CustomPageException;
  */
 
 @ControllerAdvice // IoC 대상
+@Order(2)
 public class MyPageExceptionHandler {
 	
 	@ExceptionHandler(Exception.class)
 	public void exception(Exception e) {
-		System.out.println("==== 예외 발생 확인 ====");
+		System.out.println("==== 예외 발생 확인2 ====");
 		System.out.println(e.getMessage());
 		System.out.println("--------------------------");
 	}
