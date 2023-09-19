@@ -28,7 +28,7 @@ public class UserService {
 	@Transactional
 	public void signUp(SignUpFormDto signUpFormDto) {
 		int result = userRepository.insert(signUpFormDto);
-		System.out.println("result : " + result);
+//		System.out.println("result : " + result);
 		if (result != 1) {
 			throw new CustomRestfulException("회원가입실패", HttpStatus.INTERNAL_SERVER_ERROR);
 		}

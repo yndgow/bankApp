@@ -26,7 +26,6 @@ public class MyPageExceptionHandler {
 	}
 	
 	// 사용자 정의 클래스 활용
-	
 	@ExceptionHandler(CustomPageException.class)
 	public ModelAndView handleRuntimePageException(CustomPageException e) {
 		
@@ -36,4 +35,5 @@ public class MyPageExceptionHandler {
 		modelAndView.addObject("message", e.getMessage());
 		return modelAndView;
 	}
+
 }

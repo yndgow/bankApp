@@ -4,12 +4,12 @@
 
 	<insert id="insert">
 		INSERT INTO account_tb(number, password, balance, user_id)
-		VALUES(#{number}, #{password}, #{balance}, #{user_id});
+		VALUES(#{number}, #{password}, #{balance}, #{userId});
 	</insert>
 
 	<update id="updateById">
 		UPDATE account_tb
-		SET number = #{number}, password = #{password}, user_id = #{user_id}, balance = #{balance}
+		SET number = #{number}, password = #{password}, user_id = #{userId}, balance = #{balance}
 		WHERE id = #{id};
 	</update>
 
@@ -29,7 +29,7 @@
 
 	<select id="findByUserId"
 		resultType="com.tencoding.bank.repository.model.Account">
-		SELECT * FROM account_tb WHERE user_id = #{user_id};
+		SELECT * FROM account_tb WHERE user_id = #{userId};
 	</select>
 
 	<select id="findByNumber"
