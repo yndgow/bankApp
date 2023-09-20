@@ -6,13 +6,13 @@
 	<h2>출금 페이지(인증)</h2>
 	<h5>어서 오세요 환영합니다.</h5>
 	<div class="bg-light p-md-5 h-75">
-		<form action="" method="post">
+		<form action="/account/withdraw" method="post">
 			<div class="form-group">
-				<label for="amount">출금 금액:</label>
+				<label for="amount">출금금액:</label>
 				<input type="text" id="amount" class="form-control" placeholder="출금금액을 입력하시오." name="amount">
 			</div>
 			<div class="form-group">
-				<label for="wAccountNumber">출금 계좌번호:</label>
+				<label for="wAccountNumber">출금계좌번호:</label>
 				<input type="text" id="wAccountNumber" class="form-control" placeholder="출금계좌번호를 입력하시오." name="wAccountNumber">
 			</div>
 			<div class="form-group">

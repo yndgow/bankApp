@@ -6,7 +6,7 @@
 	<h2>이체 페이지(인증)</h2>
 	<h5>어서 오세요 환영합니다.</h5>
 	<div class="bg-light p-md-5 h-75">
-		<form action="" method="post">
+		<form action="/account/transfer" method="post">
 			<div class="form-group">
 				<label for="amount">이체금액:</label>
 				<input type="text" id="amount" class="form-control" placeholder="이체금액을 입력하시오." name="amount">

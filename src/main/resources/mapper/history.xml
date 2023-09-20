@@ -7,14 +7,14 @@
 		(amount, w_account_id,
 		d_account_id, w_balance, d_balance)
 		VALUES
-		(#{amount},#{w_account_id},#{d_account_id},#{w_balance},#{d_balance});
+		(#{amount},#{wAccountId},#{dAccountId},#{wBalance},#{dBalance});
 	</insert>
 
 	<update id="updateById">
 		UPDATE history_tb
 		SET
-		amount = #{amount}, w_account_id = #{w_account_id}, d_account_id = #{d_account_id},	
-		w_balance = #{w_balance}, d_balance = #{d_balance}
+		amount = #{amount}, w_account_id = #{wAccountId}, d_account_id = #{dAccountId},	
+		w_balance = #{wBalance}, d_balance = #{dBalance}
 		WHERE id = #{id};
 	</update>
 
