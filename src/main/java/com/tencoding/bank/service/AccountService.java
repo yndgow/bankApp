@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tencoding.bank.dto.DepositFormDto;
+import com.tencoding.bank.dto.HistoryDto;
 import com.tencoding.bank.dto.SaveFormDto;
 import com.tencoding.bank.dto.TransferFormDto;
 import com.tencoding.bank.dto.WithdrawFormDto;
@@ -175,6 +176,32 @@ public class AccountService {
 		if(resultRowCount != 1) {
 			throw new CustomRestfulException("정상 처리되지 않았습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	/**
+	 * 단일 계좌 정보 검색
+	 * @param id(account pk)
+	 * @return Account Entity
+	 */
+	// 정합성 <-- 팬텀 리드 트랜잭션
+	public Account readAccount(Integer id) {
+		// 계좌 존재 여부 확인
+		Account accountEntity = accountRepository.findById(id);
+		if(accountEntity == null) {
+			throw new CustomRestfulException("해당 계좌를 찾을 수 없습니다.", HttpStatus.BAD_REQUEST);
+		}
+		return accountEntity;
+	}
+
+	/**
+	 * 단일 계좌에 대한 거래내역 검색
+	 * @param type = [all, deposit, withdraw]
+	 * @param id(account pk)
+	 * @return History 거래내역(DTO)
+	 */
+	public List<HistoryDto> readHistoryListByAccount(Integer id, String type) {
+		List<HistoryDto> historyList = historyRepository.findByHistoryType(id, type);
+		return historyList;
 	}
 
 }

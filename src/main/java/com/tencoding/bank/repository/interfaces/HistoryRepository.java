@@ -2,6 +2,9 @@ package com.tencoding.bank.repository.interfaces;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import com.tencoding.bank.dto.HistoryDto;
 import com.tencoding.bank.repository.model.History;
 
 // ibatis -> 2.4버전 이후로 Mybatis로 이름이 변경됨
@@ -16,4 +19,6 @@ public interface HistoryRepository {
 	public List<History> findAll(); // 찾기 all
 	public List<History> findAllForWithdrawByWid(Integer principalId); // 찾기 입금
 	public List<History> findAllForDepositByDid(Integer principalId); // 찾기 출금
+	// !! 중요 - 매개변수가 2개 이상이면 반드시 파리미터 이름을 명시해 주어야 한다.
+	public List<HistoryDto> findByHistoryType(@Param("id") Integer id, @Param("type") String type);
 }
