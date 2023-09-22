@@ -20,7 +20,6 @@ import com.tencoding.bank.dto.SaveFormDto;
 import com.tencoding.bank.dto.TransferFormDto;
 import com.tencoding.bank.dto.WithdrawFormDto;
 import com.tencoding.bank.handler.exception.CustomRestfulException;
-import com.tencoding.bank.handler.exception.UnAuthorizedException;
 import com.tencoding.bank.repository.model.Account;
 import com.tencoding.bank.repository.model.User;
 import com.tencoding.bank.service.AccountService;
@@ -41,9 +40,6 @@ public class AccountController {
 	public String list(Model model) {
 		// 1. 인증 여부 확인
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		if (user == null) {
-			throw new UnAuthorizedException("로그인 먼저 해요", HttpStatus.UNAUTHORIZED);
-		}
 
 		// 2. 서비스 로직
 		List<Account> accounts = accountService.readAccountList(user.getId());
@@ -57,12 +53,6 @@ public class AccountController {
 	// http://localhost:80/account/save
 	@GetMapping("/save")
 	public String save() {
-		// 1. 인증 여부 확인
-		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		if (user == null) {
-			throw new UnAuthorizedException("로그인 먼저 해요", HttpStatus.UNAUTHORIZED);
-		}
-
 		return "account/save";
 	}
 
@@ -75,9 +65,6 @@ public class AccountController {
 	public String saveProc(SaveFormDto saveFormDto) {
 		// 1. 인증
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		if (user == null) {
-			throw new UnAuthorizedException("로그인 먼저 해요", HttpStatus.UNAUTHORIZED);
-		}
 
 		// 2. 유효성 검사
 		if (saveFormDto.getNumber() == null || saveFormDto.getNumber().isEmpty())
@@ -101,11 +88,6 @@ public class AccountController {
 	// http://localhost:80/account/withdraw
 	@GetMapping("/withdraw")
 	public String withdraw() {
-		// 1. 인증
-		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		if (user == null) {
-			throw new UnAuthorizedException("로그인 먼저 해요", HttpStatus.UNAUTHORIZED);
-		}
 		return "account/withdraw";
 	}
 
@@ -114,9 +96,6 @@ public class AccountController {
 	public String withdrawProc(WithdrawFormDto withdrawFormDto) {
 		// 1. 인증
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		if (user == null) {
-			throw new UnAuthorizedException("로그인 먼저 해요", HttpStatus.UNAUTHORIZED);
-		}
 
 		// 2. 유효성 검사
 		if (withdrawFormDto.getAmount() == null) {
@@ -141,21 +120,11 @@ public class AccountController {
 	// http://localhost:80/account/deposit
 	@GetMapping("/deposit")
 	public String deposit() {
-		// 1. 인증 여부 확인
-		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		if (user == null) {
-			throw new UnAuthorizedException("로그인 먼저 해요", HttpStatus.UNAUTHORIZED);
-		}
 		return "account/deposit";
 	}
 
 	@PostMapping("/deposit")
 	public String depositProc(DepositFormDto depositFormDto) {
-		// 1. 인증 여부 확인
-		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		if (user == null) {
-			throw new UnAuthorizedException("로그인 먼저 해요", HttpStatus.UNAUTHORIZED);
-		}
 		// 2. 유효성 검사
 		if (depositFormDto.getAmount() <= 0) {
 			throw new CustomRestfulException("금액이 0원 이하입니다.", HttpStatus.BAD_REQUEST);
@@ -182,11 +151,6 @@ public class AccountController {
 	// http://localhost:80/account/transfer
 	@GetMapping("/transfer")
 	public String transfer() {
-		// 1. 인증 여부 확인
-		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		if (user == null) {
-			throw new UnAuthorizedException("로그인 먼저 해요", HttpStatus.UNAUTHORIZED);
-		}
 		return "account/transfer";
 	}
 
@@ -200,9 +164,7 @@ public class AccountController {
 	public String transferProc(TransferFormDto transferFormDto) {
 		// 1. 인증 검사
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		if (user == null) {
-			throw new UnAuthorizedException("로그인 먼저 해요", HttpStatus.UNAUTHORIZED);
-		}
+
 		// 2. 유효성 검사
 		if (transferFormDto.getWAccountNumber() == null || transferFormDto.getWAccountNumber().isEmpty()) {
 			throw new CustomRestfulException("출금계좌번호를 입력하세요.", HttpStatus.BAD_REQUEST);
@@ -236,9 +198,6 @@ public class AccountController {
 		
 		// 1. 인증 검사
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		if (user == null) {
-			throw new UnAuthorizedException("로그인 먼저 해요", HttpStatus.UNAUTHORIZED);
-		}
 		
 		// 서비스 호출
 		// Account <-
@@ -248,10 +207,7 @@ public class AccountController {
 		// List -> History <-
 		List<HistoryDto> historyList = accountService.readHistoryListByAccount(id, type);
 		model.addAttribute("historyList", historyList);
-		
 		model.addAttribute("principal", user);
-		
-		
 		
 		return "account/detail";
 	}

@@ -4,7 +4,7 @@
 	<!-- 동적 쿼리 -->
 	<select id="findByHistoryType" resultType="com.tencoding.bank.dto.HistoryDto">
 		<if test="type == 'deposit'">
-			select h.id, h.amount, h.d_balance as balance , h.created_at, da.number as recevier,
+			select h.id, h.amount, h.d_balance as balance , h.created_at, da.number as receiver,
 		   	ifnull(wa.number, 'ATM') as sender	
 			from history_tb as h 
 			left join account_tb as da

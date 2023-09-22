@@ -19,4 +19,5 @@ public interface UserRepository {
 	public User findById(Integer id); // 유저 찾기
 	public List<User> findAll(); // 관리자 - 회원정보 리스트를 보고 싶다면
 	public User findByusernameAndPassword(SignInFormDto signInFormDto);
+	public User findByUsername(String username);
 }

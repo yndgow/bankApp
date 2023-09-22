@@ -55,7 +55,6 @@ public class UserController {
 	 */
 	@PostMapping("/sign-up")
 	public String signUpProc(SignUpFormDto signUpFormDto) {
-//		System.out.println(signUpFormDto.toString());
 		// 1. 유효성 검사
 		if (signUpFormDto.getUsername() == null || signUpFormDto.getUsername().isEmpty()) {
 			throw new CustomRestfulException("username을 입력하세요", HttpStatus.BAD_REQUEST);
@@ -66,7 +65,7 @@ public class UserController {
 		if (signUpFormDto.getFullname() == null || signUpFormDto.getFullname().isEmpty()) {
 			throw new CustomRestfulException("fullname을 입력하세요", HttpStatus.BAD_REQUEST);
 		}
-
+		
 		// 2. 서비스 호출
 		userService.signUp(signUpFormDto);
 		// 3. 정상 처리 되었다면
@@ -76,7 +75,7 @@ public class UserController {
 	}
 	
 	/**
-	 * 
+	 * 로그인
 	 * @param signInFormDto
 	 * @return 계좌 리스트 페이지로 리턴
 	 */
