@@ -3,11 +3,19 @@ package com.tencoding.bank.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import com.tencoding.bank.dto.SignInFormDto;
 import com.tencoding.bank.dto.SignUpFormDto;
@@ -17,7 +25,7 @@ import com.tencoding.bank.service.UserService;
 import com.tencoding.bank.utils.Define;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping({"/user", "/"})
 public class UserController {
 
 	@Autowired
@@ -37,7 +45,7 @@ public class UserController {
 
 	// 로그인 페이지 요청
 	// http://localhost:80/user/sign-in
-	@GetMapping("/sign-in")
+	@GetMapping({"/sign-in", ""})
 	public String signIn() {
 		return "user/signIn";
 	}
@@ -49,7 +57,7 @@ public class UserController {
 	// key = value 구조로 파싱
 	// ObjectMapper 가 내부적으로 작동
 	/**
-	 * 
+	 * 회원가입
 	 * @param signUpFormDto
 	 * @return 리다이렉트 처리 - 로그인 페이지
 	 */
@@ -107,6 +115,44 @@ public class UserController {
 	public String logout() {
 		session.invalidate();
 		return "redirect:/user/sign-in";
+	}
+	
+	
+	// http://localhost:80/user/kakao/callback?code="authCode"
+	@GetMapping("/kakao/callback")
+	@ResponseBody // data 반환 명시
+	public String kakaoCallback(String code) {
+		System.out.println("메서드 동작");
+		
+		// POST 요청 - exchange() 메서드 활용
+		RestTemplate rt = new RestTemplate();
+		
+		// Header 구성
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		
+		// body 구성
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("grant_type", "authorization_code");
+		params.add("client_id", "d756e532cfa99b1914e7dffa847d96ab");
+		params.add("redirect_uri", "http://localhost:80/user/kakao/callback");
+		params.add("code", code);
+		
+		// HttpEntity 결합 (헤더 + 바디)
+		HttpEntity<MultiValueMap<String, String>> reqMes = new HttpEntity<>(params, headers);
+		
+		// HTTP 요청
+		ResponseEntity<String> response = rt.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST, reqMes, String.class);
+		
+		// 액세스 토큰
+		
+		// 1. 회원가입 여부 확인
+		// - 최초 사용자라면 본인 회원가입 형식으로 회원가입 처리
+
+		// 2. 로그인 -> 세션 메모리에 사용자를 등록(세션 생성)
+		
+		
+		return "카카오 액세스 토큰 받기 완료 : " + response;
 	}
 
 }
