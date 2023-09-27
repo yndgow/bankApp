@@ -42,6 +42,12 @@
       		<li class="nav-item">
         		<a class="nav-link" href="/user/logout">로그아웃</a>
       		</li>
+      		<li class="nav-item">
+        		<a class="nav-link" href="/user/kakao/logout">카카오 로그아웃</a>
+      		</li>
+      		<li class="nav-item">
+        		<a class="nav-link" href="https://kauth.kakao.com/oauth/logout?client_id=d756e532cfa99b1914e7dffa847d96ab&logout_redirect_uri=http://localhost/user/logout">카카오 로그아웃2</a>
+      		</li>
       	</c:otherwise>
       </c:choose>
           

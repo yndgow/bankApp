@@ -72,4 +72,22 @@ public class UserService {
 		}
 		return userEntity;
 	}
+	
+	/**
+	 * 유저 찾기
+	 * @param username
+	 * @return
+	 */
+	public User searchUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+	
+	public void testForm(User user) {
+		SignUpFormDto signUpFormDto = new SignUpFormDto().toEntity(user);
+		
+		
+		userRepository.insert(signUpFormDto);
+	}
+	
+	
 }
